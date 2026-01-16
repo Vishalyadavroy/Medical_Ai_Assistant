@@ -1,8 +1,6 @@
 from fastapi import FastAPI
-from dotenv import load_dotenv
 from app_backend.api.v1.chat import router as chat_router
-
-load_dotenv() #Load environment variables from .env
+from app_backend.api.v1.soap import router  as soap_router
 
 app = FastAPI(
     title="Medical AI Assistant",
@@ -12,11 +10,11 @@ app = FastAPI(
 
 
 app.include_router(chat_router, prefix="/api/v1")
+app.include_router(soap_router, prefix="/api/v1")
 
 @app.get("/")
 def health_check():
     return{
         "status" : "ok",
         "message" : "Medical Ai Assistant backend is running"
-
     }
